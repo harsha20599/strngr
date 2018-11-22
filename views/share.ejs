@@ -56,11 +56,11 @@
           >
         </div>
 
-        <div id="shareBtn" class="btn-blue btn-left mt-20" id="shareBtn">
+        <div id="shareBtn" class="btn-blue btn-left mt-20">
           <button class="h-40 color-teal font-bold">Share on other</button>
         </div>
 
-        <div id="copy" class="btn-teal btn-right mt-20" id="shareBtn">
+        <div id="copy" class="btn-teal btn-right mt-20">
           <button class="h-40 color-blue font-bold">Copy</button>
         </div>
 
@@ -90,7 +90,7 @@
     </footer>
     <script>
       $("#shareBtn").click(function() {
-        var URI = "https://strngr.tk/" + handle;
+        var URI = "http://strngr.herokuapp.com/" + handle;
         var text = "Give your feedback anonymously to " + name;
         if (navigator.share) {
           navigator
@@ -110,10 +110,10 @@
       });
 
       function printResult(d) {
-        $("#inputBox").val("strngr.ml/" + d.handle);
+        $("#inputBox").val("strngr.herokuapp.com/" + d.handle);
         var whatsappUrl = `whatsapp://send?text=Give your feedback anonymously to ${
           d.name
-        }: strngr.ml/${d.handle}`;
+        }: strngr.herokuapp.com/${d.handle}`;
         $("#whatsapp").attr("href", whatsappUrl);
         $("#whatsapp").attr("data-action", "share/whatsapp/share");
       }
