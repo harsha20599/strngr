@@ -1,0 +1,77 @@
+<!DOCTYPE html>
+<html>
+<head>
+	<meta charset="utf-8">
+	<meta http-equiv="X-UA-Compatible" content="IE=edge">
+	<title>Strngr - Anonymous feeback</title>
+	<meta name="viewport" content="width=device-width, initial-scale=1">
+	<link rel="stylesheet" href="stylesheets/style.css" type="text/css">
+		<link rel="stylesheet" type="text/css" href="stylesheets/loading.css"/>
+	<link rel="stylesheet" type="text/css" href="stylesheets/loading-btn.css"/>
+	<script src="https://code.jquery.com/jquery-3.3.1.min.js"></script>
+	<meta name="description" content="Strngr - An anonymous feedback service!">
+	<meta property="og:url" content="https://www.strngr.ml/" />
+	<meta property="og:description" content="Strngr - An anonymous feedback service!">
+	<meta property="og:title" content="Anonymous feedback" />
+	<meta property="og:type" content="profile" />
+	<meta property="og:image" content="http://unrestrictedstock.com/wp-content/uploads/Unrestricted-Stock-Small.png"/>
+	<script>
+		var name = '<%= user.name %>';
+		var handle = '<%= user.handle %>';
+	</script>
+</head>
+<body>
+	<div class="background mt-20">
+		
+		<header class="color-blue title ">
+			<h1 class="ml-30">Strngr</h1>
+		</header><!-- /header -->
+		<div class="card ml-30 mr-30 mt-60">
+			
+			<div class="card-title title color-blue fs-18">
+				Give your feedback to <%= user.name %>
+			</div>
+			<div class="input-text-rounded mt-20">
+				<input id="name" type="text" placeholder="Enter your name">
+				<span class="info color-grey">Leave it blank for anonymous</span>
+			</div>
+			<div class="input-text-rounded">
+				<textarea id="textArea" placeholder="Enter the message"></textarea>
+			</div>
+			
+			<div id="animat"  class="btn-teali h-40 color-blue font-bold ld-ext-right">Submit<div class="ld ld-ring ld-spin-fast"></div>
+			</div>
+	
+		</div>
+	</div>
+		<footer class="color-grey card-para fs-8">
+			<span class="links">
+				<span>HELP |</span>
+				<span>REPORT |</span>
+				<span>ABOUT</span>
+			</span>	
+			<div class="info">
+				<span>developed by <span>harsha20599</span></span>
+			</div>
+		</footer>
+	<script type="text/javascript">
+		$('#animat').click(function(){
+			$("#animat").addClass("running");
+			if($('#textArea').val() != '' || $('#textArea').val() != ' '){
+				var name = $('#name').val() ? $('#name').val() : 'Anonymous';
+				console.log(name);
+				var text = $('#textArea').val() ;
+ 				$.post("/api/insert", { name: name, text : text, handle : handle }, function(data) {
+					console.log(data);
+        });
+
+			}
+
+		});
+		// function animation() {
+		//    var element = document.getElementById("animat");
+		//    element.classList.toggle("running");
+		// }
+	</script>
+</body>
+</html>

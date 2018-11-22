@@ -1,0 +1,101 @@
+<!DOCTYPE html>
+<html>
+  <head>
+    <meta charset="utf-8" />
+    <meta http-equiv="X-UA-Compatible" content="IE=edge" />
+    <title>Strngr - Anonymous feeback</title>
+    <meta name="viewport" content="width=device-width, initial-scale=1" />
+    <script src="https://code.jquery.com/jquery-3.3.1.min.js"></script>
+    <link rel="stylesheet" href="stylesheets/style.css" type="text/css" />
+    <script>
+      document.onreadystatechange = function(e) {
+        if (document.readyState === "complete") {
+          // alert("Hello");
+          var value = localStorage.getItem("strngr");
+          if (!value) window.location.href = "/";
+          var result;
+          $.ajax({
+            url: "/api/view",
+            type: "get",
+            headers: {
+              authorization: value //If your header name has spaces or any other char not appropriate
+            },
+            success: function(data) {
+              printResult(data);
+            },
+            error: function(err) {
+              window.location.href = "/";
+            }
+          });
+        }
+      };
+    </script>
+  </head>
+  <body>
+    <div class="background mt-20">
+      <header class="color-blue title "><h1 class="ml-30">Strngr</h1></header>
+      <!-- /header -->
+      <div id="container" class="container"></div>
+    </div>
+    <footer class="color-grey card-para fs-8">
+      <span class="links">
+        <span>Help |</span> <span>Report |</span> <span>About</span>
+      </span>
+      <div class="info2">
+        <span>developed by <span>harsha20599</span></span>
+      </div>
+    </footer>
+    <script>
+      function printResult(d) {
+        console.log(d);
+        if (d.length < 1) {
+          return $("#container").append(`
+      
+      					<div class="card ml-30 mr-30 mt-20">
+      						
+      						<div class="card-title title color-blue fs-18 card-feedback">
+      							No entries recieved
+      						</div>
+									<a href="/share">
+      						<div class="btn-teal mt-20">
+      							<button class="h-40 color-blue font-bold">Share link</button>
+									</div>
+									</a>
+      
+      					</div>
+      
+      					`);
+        }
+        for (var i in d) {
+          $("#container").append(`
+      					<div class="card ml-30 mr-30 mt-20">
+      						
+      						<div class="card-title title color-blue fs-18 card-feedback">
+      							${d[i].text}
+      						</div>
+      						<div class="username color-blue">
+      							<p>-${d[i].name}</p>
+      						</div>
+      					</div>
+      					`);
+        }
+        $("#container").append(`
+      
+      				<div class="card ml-30 mr-30 mt-20">
+      					
+      					<div class="card-title title color-blue fs-18 card-feedback">
+      						Share with your friends
+      					</div>
+								<a href="/share">
+      					<div class="btn-teal mt-20">
+      						<button class="h-40 color-blue font-bold">Share link</button>
+								</div>
+								</a>
+      
+      				</div>
+      
+      				`);
+      }
+    </script>
+  </body>
+</html>

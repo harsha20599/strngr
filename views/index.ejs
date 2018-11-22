@@ -1,0 +1,100 @@
+<!DOCTYPE html>
+<html>
+  <head>
+    <meta charset="utf-8" />
+    <meta http-equiv="X-UA-Compatible" content="IE=edge" />
+    <title>Strngr - Anonymous feeback</title>
+    <meta name="viewport" content="width=device-width, initial-scale=1" />
+    <link rel="stylesheet" href="stylesheets/style.css" type="text/css" />
+    <link rel="stylesheet" type="text/css" href="stylesheets/loading.css" />
+    <script src="https://code.jquery.com/jquery-3.3.1.min.js"></script>
+    <link rel="stylesheet" type="text/css" href="stylesheets/loading-btn.css" />
+    <script>
+      document.onreadystatechange = function(e) {
+        if (document.readyState === "complete") {
+          // alert("Hello");
+          var value = localStorage.getItem("strngr");
+          // if (!value) window.location.href = "/";
+          var result;
+          $.ajax({
+            url: "/api/view",
+            type: "get",
+            headers: {
+              authorization: value //If your header name has spaces or any other char not appropriate
+            },
+            success: function(data) {
+              window.location.href='/view'
+            }
+          });
+        }
+      };
+    </script>
+  </head>
+  <body>
+    <div class="background mt-20">
+      <div class="headings">
+        <div class="title color-blue ml-40 fs-22 h-40"><h1>Strngr</h1></div>
+        <div class="sub-title ml-40 color-blue"><p>Anonymous Feedback</p></div>
+      </div>
+
+      <div class="card ml-30 mr-30 mt-60">
+        <div class="card-title title color-blue fs-18">
+          It's all start with a link
+        </div>
+        <div id="outline" class="input-text-rounded">
+          <input type="text" id="inputBox" placeholder="Enter your name" />
+          <span id="errorInfo" class="error-info hide"
+            >Please give only letters</span
+          >
+        </div>
+        <div class="card-para fs-12">
+          <p class="color-grey">
+            Make sure you are <span class="color-blue">not</span> in
+          </p>
+          <ul class="list color-blue">
+            <li>Incognito mode</li>
+            <li>Private browser</li>
+          </ul>
+        </div>
+        <div
+          id="animat"
+          class="btn-teali h-40 color-blue font-bold ld-ext-right"
+        >
+          Share link
+          <div class="ld ld-ring ld-spin-fast"></div>
+        </div>
+      </div>
+    </div>
+    <footer class="color-grey card-para fs-8">
+      <span class="links">
+        <span>HELP |</span> <span>REPORT |</span> <span>ABOUT</span>
+      </span>
+      <div class="info">
+        <span>developed by <span>harsha20599</span></span>
+      </div>
+    </footer>
+    <script type="text/javascript">
+      $("#animat").click(() => {
+        $("#animat").addClass("running");
+        if ( !$('#inputBox').val().match('^[a-zA-Z\\s]+$') ) {
+        // if (!$("#inputBox")
+        //     .val()
+        //     .match("^[a-zA-Z\(\)]+$")
+        //   ){
+          // console.log("contains other vallues");
+          $("#outline").addClass("error");
+          $("#errorInfo").removeClass("hide");
+          $("#animat").removeClass("running");
+          return;
+        }
+        var name = $("#inputBox").val();
+        $("#outline").removeClass("error");
+        $("#errorInfo").addClass("hide");
+        $.post("/api/create", { name: name }, function(data) {
+          localStorage.setItem("strngr", data.token);
+          window.location.href = "/share";
+        });
+      });
+    </script>
+  </body>
+</html>
