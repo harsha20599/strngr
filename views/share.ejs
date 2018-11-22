@@ -89,19 +89,29 @@
       </div>
     </footer>
     <script>
+      async function webShare(URI,text){
+        try {
+          await navigator.share({ title: "Strngr - Anonymous feedback", url: URI,text: text });
+          console.log("Data was shared successfully");
+        } catch (err) {
+          console.error("Share failed:", err.message);
+        }
+      }
       $("#shareBtn").click(function() {
         var URI = "http://strngr.herokuapp.com/" + handle;
         var text = "Give your feedback anonymously to " + name;
-        if (navigator.share) {
-          navigator
-            .share({
-              title: "Strngr - Anonymous feedback",
-              text: text,
-              url: URI
-            })
-            .then(() => console.log("Successful share"))
-            .catch(error => console.log("Error sharing", error));
-        }
+        webShare(URI,text);
+        // console.log("clicked");
+        // if (navigator.share) {
+        //   navigator
+        //     .share({
+        //       title: "Strngr - Anonymous feedback",
+        //       text: text,
+        //       url: URI
+        //     })
+        //     .then(() => console.log("Successful share"))
+        //     .catch(error => console.log("Error sharing", error));
+        // }
       });
 
       $("#copy").click(function() {
