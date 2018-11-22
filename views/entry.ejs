@@ -62,7 +62,7 @@
 				console.log(name);
 				var text = $('#textArea').val() ;
  				$.post("/api/insert", { name: name, text : text, handle : handle }, function(data) {
-					console.log(data);
+					window.location='/submitted';
         });
 
 			}
