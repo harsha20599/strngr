@@ -32,6 +32,17 @@ position: fixed;
 height: 100vh;
 width: 100%;
 }
+.help-item{
+  border-bottom: 1px solid #F4F4F4;
+}
+.help-icon {
+  background: url('../images/arrow.svg');
+  height: 13px;
+  float: right;
+  width: 15px;
+  background-repeat: no-repeat;
+  margin-top: -30px;
+}
 .title{
 font-family: Circular Std Black;
 }
@@ -75,6 +86,9 @@ margin-top: 60px;
 }
 .mt-20{
 margin-top: 20px;
+}
+.mb-20{
+margin-bottom: 20px;
 }
 .input-text-rounded input{
 background-color: #F8F8F8;
@@ -198,4 +212,20 @@ overflow: auto;
 .btn-right {
   width : 45%;
   float: right;
+}
+.pd-10{
+  padding: 20px;
+}
+.h-70p{
+  max-height: 70%;
+}
+.pt-5{
+  padding-top: 5px;
+}
+p.fs-12.color-blue.sub-title {
+  width: 90%;
+}
+.header-link{
+  text-decoration: none;
+
 }

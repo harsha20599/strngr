@@ -18,6 +18,24 @@
 	<script>
 		var name = '<%= user.name %>';
 		var handle = '<%= user.handle %>';
+		document.onreadystatechange = function(e) {
+        if (document.readyState === "complete") {
+          // alert("Hello");
+          var value = localStorage.getItem("strngr");
+          // if (!value) window.location.href = "/";
+          var result;
+          $.ajax({
+            url: "/api/verifyhandle/"+handle,
+            type: "get",
+            headers: {
+              authorization: value //If your header name has spaces or any other char not appropriate
+            },
+            success: function(data) {
+							window.location.href = "/view";
+            }
+          });
+        }
+      };
 	</script>
 </head>
 <body>

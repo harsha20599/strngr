@@ -36,17 +36,31 @@ router.get('/view', function(req, res, next) {
   res.render('view', { name : 'hello' });
 });
 
-router.get('/:id',(req,res)=>{
-  var handle = req.params.id;
-  User.findOne({handle : handle})
-    .then(user => {
-      if(user)
-        res.render('entry',{user : user})
-      else
-        res.render('index');
-    })
-    .catch(err => res.render('index'));
+router.get('/help', function(req, res, next) {
+  res.render('help');
+});
+router.get('/help/removeitem',(req,res)=> {
+  res.render('help/removeItem');
 })
+router.get('/help/anonymous',(req,res)=> {
+  res.render('help/anonymous');
+})
+router.get('/help/is-safe',(req,res)=> {
+  res.render('help/is-safe');
+})
+router.get('/help/incognito',(req,res)=> {
+  res.render('help/incognito');
+})
+router.get('/help/missing',(req,res)=> {
+  res.render('help/missing');
+})
+router.get('/report',(req,res)=> {
+  res.render('help/report');
+})
+router.get('/about',(req,res)=> {
+  res.render('help/about');
+})
+
 
 
 //@Route /api/view
@@ -82,6 +96,28 @@ router.get(
       // if(err) return res.redirect('/');
       if(err) return res.status(400).json({error : "Invalid token"});
       res.json(authData.obj);
+    }); 
+  }
+)
+
+//@Route /api/verifyhandle/:handle
+//@Desc display user's entries
+//@IP : jwt token @OP : user's entries array
+router.get(
+  '/api/verifyhandle/:id',
+  verifyToken,
+  (req,res) => {
+    var linkHandle = req.params.id;
+    console.log(linkHandle);
+    jwt.verify(req.token, 'strngr.harsha20599', (err, authData) => {
+      // if(err) return res.redirect('/');
+      if(err) return res.status(400).json({error : "Invalid token"});
+      var jwtHandle = authData.obj.handle;
+      if(linkHandle == jwtHandle){
+        res.json({success : true});
+      }else{
+        res.status(400).json({success : false})
+      }
     }); 
   }
 )
@@ -160,4 +196,16 @@ function verifyToken(req, res, next) {
 
 }
 
+
+router.get('/:id',(req,res)=>{
+  var handle = req.params.id;
+  User.findOne({handle : handle})
+    .then(user => {
+      if(user)
+        res.render('entry',{user : user})
+      else
+        res.render('index');
+    })
+    .catch(err => res.render('index'));
+});
 module.exports = router;
