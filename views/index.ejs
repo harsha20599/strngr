@@ -76,6 +76,13 @@
         </div>
       </footer>
     <script type="text/javascript">
+    			$('#inputBox')
+        .focus(function(){
+            $('footer').hide();
+					})
+					.blur(function(){
+						$('footer').show();
+        });
       $("#animat").click(() => {
         $("#animat").addClass("running");
         if ( !$('#inputBox').val().match('^[a-zA-Z\\s]+$') ) {

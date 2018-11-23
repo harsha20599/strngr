@@ -62,7 +62,7 @@
 	
 		</div>
 	</div>
-	<footer class="color-grey card-para fs-8">
+	<footer id="footer" class="color-grey card-para fs-8">
 			<span class="links">
 				<a href="/help" class="color-grey header-link"><span>Help |</span></a>
 				<a href="/report"class="color-grey header-link"><span>Report |</span></a>
@@ -73,9 +73,23 @@
 			</div>
 		</footer>
 	<script type="text/javascript">
+			$('#name')
+        .focus(function(){
+            $('#footer').hide();
+					})
+					.blur(function(){
+						$('#footer').show();
+        });
+			$('#textArea')
+        .focus(function(){
+            $('#footer').hide();
+					})
+					.blur(function(){
+						$('#footer').show();
+        });
 		$('#animat').click(function(){
-			$("#animat").addClass("running");
-			if($('#textArea').val() != '' || $('#textArea').val() != ' '){
+			if($.trim($('#textArea').val())!= ''){
+				$("#animat").addClass("running");
 				var name = $('#name').val() ? $('#name').val() : 'Anonymous';
 				console.log(name);
 				var text = $('#textArea').val() ;
