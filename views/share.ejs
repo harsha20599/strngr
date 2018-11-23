@@ -24,7 +24,7 @@
             },
             success: function(data) {
               handle = data.handle;
-              handle = data.name;
+              name = data.name;
               printResult(data);
             },
             error: function(err) {
@@ -123,7 +123,7 @@
       });
 
       function printResult(d) {
-        $("#inputBox").val("strngr.herokuapp.com/" + d.handle);
+        $("#inputBox").val("https://strngr.herokuapp.com/" + d.handle);
         var whatsappUrl = `whatsapp://send?text=Give your feedback anonymously to ${
           d.name
         }: strngr.herokuapp.com/${d.handle}`;
