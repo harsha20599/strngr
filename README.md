@@ -5,6 +5,6 @@ This is created in nodejs as a express application, hosted on heroku.
 
 # License
 You are completely free to use the any of the part of code. I am not liable for bugs and any illegal approach for the site. 
-Donation throught paypal or mentioning my name is very appreiciated.
+Donation throught paypal or mentioning my name is very appreciated.
 
 [Paypal - harsha20599](paypal.com/harsha20599)
